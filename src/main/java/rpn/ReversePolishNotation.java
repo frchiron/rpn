@@ -1,40 +1,46 @@
 package rpn;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
+
 public class ReversePolishNotation {
 
 	private static final String SEPARATOR = " ";
-
-	public static long compute(String expression) {
+	
+	public static BigDecimal compute(String expression) {
 
 		if (expression.isEmpty()) {
-			return 0;
+			return new BigDecimal("0");
 		}
 
 		String[] expressionElements = expression.split(SEPARATOR);
 
 		if (expressionElements.length == 1) {
-			return Long.valueOf(expression);
+			return new BigDecimal(expression);
 		}
 
+		
+		
 		String firstOperator = expressionElements[2];
-		Long firstResult = getFirstResult(firstOperator, Long.valueOf(expressionElements[0]),
-				Long.valueOf(expressionElements[1]));
+		BigDecimal firstResult = getFirstResult(firstOperator, new BigDecimal(expressionElements[0]),
+				new BigDecimal(expressionElements[1]));
 		String endOfExpression = expression.substring(expression.indexOf(firstOperator) + 1);
 		return compute(firstResult + endOfExpression);
 	}
 
-	private static Long getFirstResult(String firstOperator, Long firstOperand, Long secondOperand) {
+	private static BigDecimal getFirstResult(String firstOperator, BigDecimal firstOperand, BigDecimal secondOperand) {
+		System.out.println("firstOperand="+firstOperand+" secondOperand="+secondOperand);
 		switch (firstOperator) {
 		case "+":
-			return firstOperand + secondOperand;
+			return firstOperand.add(secondOperand);
 		case "-":
-			return firstOperand - secondOperand;
+			return firstOperand.subtract(secondOperand);
 		case "*":
-			return firstOperand * secondOperand;
+			return firstOperand.multiply(secondOperand);
 		case "/":
-			return firstOperand / secondOperand;
+			return firstOperand.divide(secondOperand);
 		default:
-			return 0L;
+			return new BigDecimal("0");
 		}
 	}
 }

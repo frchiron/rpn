@@ -2,6 +2,8 @@ package rpn;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,9 +15,9 @@ public class ReversePolishNotationTest {
 
 		String expression = "1";
 		
-		long result = ReversePolishNotation.compute(expression);
+		BigDecimal result = ReversePolishNotation.compute(expression);
 		
-		assertThat(result).isEqualTo(1);
+		assertThat(result).isEqualTo(BigDecimal.valueOf(1));
 	}
 
 	@Test
@@ -23,9 +25,9 @@ public class ReversePolishNotationTest {
 
 		String expression = "4";
 		
-		long result = ReversePolishNotation.compute(expression);
+		BigDecimal result = ReversePolishNotation.compute(expression);
 		
-		assertThat(result).isEqualTo(4);
+		assertThat(result).isEqualTo(BigDecimal.valueOf(4));
 	}
 
 	@Test
@@ -33,9 +35,9 @@ public class ReversePolishNotationTest {
 
 		String expression = "4 1 +";
 		
-		long result = ReversePolishNotation.compute(expression);
+		BigDecimal result = ReversePolishNotation.compute(expression);
 		
-		assertThat(result).isEqualTo(5);
+		assertThat(result).isEqualTo(BigDecimal.valueOf(5));
 	}
 
 	@Test
@@ -43,9 +45,9 @@ public class ReversePolishNotationTest {
 
 		String expression = "14 1 +";
 		
-		long result = ReversePolishNotation.compute(expression);
+		BigDecimal result = ReversePolishNotation.compute(expression);
 		
-		assertThat(result).isEqualTo(15);
+		assertThat(result).isEqualTo(BigDecimal.valueOf(15));
 	}
 	
 	@Test
@@ -53,9 +55,9 @@ public class ReversePolishNotationTest {
 
 		String expression = "10 2 *";
 		
-		long result = ReversePolishNotation.compute(expression);
+		BigDecimal result = ReversePolishNotation.compute(expression);
 		
-		assertThat(result).isEqualTo(20);
+		assertThat(result).isEqualTo(BigDecimal.valueOf(20));
 	}
 	
 	@Test
@@ -63,9 +65,9 @@ public class ReversePolishNotationTest {
 
 		String expression = "10 2 -";
 		
-		long result = ReversePolishNotation.compute(expression);
+		BigDecimal result = ReversePolishNotation.compute(expression);
 		
-		assertThat(result).isEqualTo(8);
+		assertThat(result).isEqualTo(BigDecimal.valueOf(8));
 	}
 	
 	@Test
@@ -73,9 +75,9 @@ public class ReversePolishNotationTest {
 
 		String expression = "10 2 /";
 		
-		long result = ReversePolishNotation.compute(expression);
+		BigDecimal result = ReversePolishNotation.compute(expression);
 		
-		assertThat(result).isEqualTo(5);
+		assertThat(result).isEqualTo(BigDecimal.valueOf(5));
 	}
 	
 	@Test
@@ -83,9 +85,29 @@ public class ReversePolishNotationTest {
 
 		String expression = "4 2 + 3 -";
 		
-		long result = ReversePolishNotation.compute(expression);
+		BigDecimal result = ReversePolishNotation.compute(expression);
 		
-		assertThat(result).isEqualTo(3);
+		assertThat(result).isEqualTo(BigDecimal.valueOf(3));
+	}
+
+	@Test
+	public void should_return_result_given_two_negative_operands() {
+
+		String expression = "-4 -2 +";
+		
+		BigDecimal result = ReversePolishNotation.compute(expression);
+		
+		assertThat(result).isEqualTo(BigDecimal.valueOf(-6));
+	}
+	
+	@Test
+	public void should_return_result_given_two_decimal_numbers() {
+
+		String expression = "4.6 2.8 +";
+		
+		BigDecimal result = ReversePolishNotation.compute(expression);
+		
+		assertThat(result).isEqualTo(BigDecimal.valueOf(7.4));
 	}
 	
 	@Test
@@ -93,16 +115,16 @@ public class ReversePolishNotationTest {
 
 		String expression = "4 2 - 7 +";
 		
-		long result = ReversePolishNotation.compute(expression);
+		BigDecimal result = ReversePolishNotation.compute(expression);
 		
-		assertThat(result).isEqualTo(9);
+		assertThat(result).isEqualTo(BigDecimal.valueOf(9));
 	}
 	
 	@Test
 	public void should_return_0_given_empty_expression() {
 
-		long result = ReversePolishNotation.compute("");
+		BigDecimal result = ReversePolishNotation.compute("");
 		
-		assertThat(result).isEqualTo(0);
+		assertThat(result).isEqualTo(BigDecimal.valueOf(0));
 	}
 }
